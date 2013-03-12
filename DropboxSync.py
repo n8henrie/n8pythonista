@@ -15,7 +15,7 @@ class dropbox_state:
 		self.remote_files = {}
 	
 	# use ignore_path to prevent download of recently uploaded files 
-	def execute_delta(self, client, ignore_path = None):
+	def execute_delta(self, client, ignore_path = '.git'):
 		delta = client.delta(self.cursor)
 		self.cursor = delta['cursor']
 		
@@ -24,7 +24,7 @@ class dropbox_state:
 			meta = entry[1]
 			
 			# this skips the path if we just uploaded it
-			if path != ignore_path:
+			if path != ignore_path and path[:(len(ignore_path) + 1)] != ignore_path + '/':
 				if meta != None:
 					path = meta['path'][1:] # caps sensitive
 					if meta['is_dir']:
@@ -189,4 +189,3 @@ if __name__ == '__main__':
 	savestate(state)
 	
 	print '\nSync complete'
-	
