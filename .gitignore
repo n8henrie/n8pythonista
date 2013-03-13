@@ -1,8 +1,8 @@
-dropboxlogin.py
 ScratchPad.py
-MultiLineOmniFocus.py
 Examples/
 Icon?
 Icon
 .dropbox
 .DS_Store
+.n8pass
+n8credentials.py

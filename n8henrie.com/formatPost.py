@@ -1,3 +1,5 @@
+# takes post from markdown, converts to html, fixes links to open in new window
+
 import clipboard
 import re
 import markdown
