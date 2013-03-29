@@ -3,7 +3,7 @@ import clipboard
 import console
 import urllib
 
-editor.reload_files()
+# editor.reload_files()
 filePath = editor.get_path()
 
 rawName = filePath[filePath.rfind('/Documents/') + 11:-3]
