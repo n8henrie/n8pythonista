@@ -4,47 +4,44 @@ import photos
 import clipboard
 import Image
 import console
-
-x = 0
+import sys
 
 # Here is where you set the amount of original size 
 # that you'd like the final images to be, e.g. 100
 # would be original size (and would break the script)
 # and 25 would result in images 1/4 original size.
-# Default values turn a screenshot on the stated device
-# into an image *** pixels wide. 
-riPhonePercent = 40
-nriPhonePercent = 60
-riPadPercent = 30
-nriPadPercent = 50
 
-if riPhonePercent >= 100 or nriPhonePercent >= 100 or riPadPercent >= 100 or nriPadPercent >= 100 :
-	print ''
+reduction_amounts = {'Retina iPhone': 35, 'Non-retina iPhone': 50,
+                     'Retina iPad': 60, 'Non-retina iPad': 75 }
 
-# Be careful if you change these strings, as
-# the first 2 characters are used in setting resizeAmount.
-riPhone = '{0}% (from  retina iPhone)'.format(riPhonePercent)
-nriPhone = '{0}% (from  non-retina iPhone)'.format(nriPhonePercent)
-riPad = '{0}% (from retina iPad)'.format(riPadPercent)
-nriPad = '{0}% (from non-retina iPad)'.format(nriPadPercent)
+for amount in reduction_amounts:
+	if reduction_amounts[amount] >= 100:
+		print 'One of your reduction_amounts is too high, must be lower than 100.\nExample: If you want the resulting image to be 1/4 its original size, the reduction_amounts would be 25.'
+		sys.exit()
 
 # This takes a max of 5 arguments including the title and message, 
 # so you can really only put in 2 devices and 'Custom'. Set the two
 # you want here.
-q1 = riPhone
-q2 = nriPad
+# Make sure they match the string in reduction_amounts exactly!
+q1 = 'Retina iPhone'
+q2 = 'Non-retina iPad'
 
-resizeAmountQ = console.alert('What percent of original size?','',q1,q2,'Custom')
+if not clipboard.get_image(idx=0):
+	print 'I don\'t think there are any images on the clipboard.'
+	sys.exit()
+
+resizeAmountQ = console.alert('What percent of original size?','','{0}% (default for {1})'.format(reduction_amounts[q1], q1),'{0}% (default for {1})'.format(reduction_amounts[q2], q2), 'Custom')
 if resizeAmountQ == 1 :
-	resizeAmount = float(q1[0:2]) / 100
+	resizeAmount = float(reduction_amounts[q1]) / 100
 elif resizeAmountQ == 2 :
-	resizeAmount = float(q2[0:2]) / 100 
+	resizeAmount = float(reduction_amounts[q2]) / 100
 elif resizeAmountQ == 3 :
 	resizeAmount = float(console.input_alert('What percent of original size?','Number only','40')) / 100
 else:
 	print 'Whups!'
-	exit
+	sys.exit()
 	
+x = 0
 while True:
 	img = clipboard.get_image(idx=x)
 
@@ -56,10 +53,8 @@ while True:
 		
 		x += 1
 		
-	elif x == 0 :
-		print 'No images found on the clipboard.'
-
 	else:
 		print 'Looks like it worked. The downsampled images should be in your camera roll.'
 		break 
+
 

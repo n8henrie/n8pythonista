@@ -6,12 +6,17 @@
 # If you choose "the second image", the second file copied in Photos.app will be pasted first.
 # Inspired by Gabe Weatherhead: http://www.macdrifter.com/pythonista-app-from-toy-to-tool.html
 
+import photos
 import clipboard
 import Image
 
-
-im1 = clipboard.get_image(idx=0)
-im2 = clipboard.get_image(idx=1)
+if clipboard.get_image(idx=0) and clipboard.get_image(idx=1):
+  im1 = clipboard.get_image(idx=0)
+  im2 = clipboard.get_image(idx=1)
+else: 
+  im1 = photos.get_image(-1)
+  im2 = photos.get_image(-2)
+  
 _1 = im1.resize((366,650),Image.ANTIALIAS)
 _2 = im2.resize((366,650),Image.ANTIALIAS)
 background = Image.new('RGBA', (746,650), (255, 255, 255, 255))

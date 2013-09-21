@@ -8,7 +8,7 @@ from email import encoders
 import sys
 import webbrowser
 import console
-import n8credentials
+import keychain
 from base64 import b64decode
 
 def main():
@@ -18,12 +18,12 @@ def main():
 	### CHANGE THESE VALUES:
 	
 	# My login script -- you'll need to delete / comment this and add your info below.
-	to, gmail_pwd = n8credentials.n8creds().n8login('MultiLineOmniFocus')
+	to = keychain.get_password('omnifocus','maildrop_address')
 	
 # 	to = 'Your_OmniGroup_MailDrop_Address'
 #   gmail_user = 'Your_Email@gmail.com' # comment my b64 stuff in the next line
 	gmail_user = b64decode('bjhoZW5yaWVAZ21haWwuY29t')
-# 	gmail_pwd = 'Your_Gmail_Password'
+	gmail_pwd = keychain.get_password('multilineomnifocus',gmail_user)
 
 	console.clear()
 	print 'Starting SMTP Server'

@@ -1,13 +1,10 @@
 # YOU NEED TO INSERT YOUR APP KEY AND SECRET BELOW!
 # Go to dropbox.com/developers/apps to create an app.
-import n8credentials
+import keychain
 
 # Put your settings below if you don't have a login script.
-# app_key = ''
-# app_secret = ''
-
-# My login script
-app_key, app_secret = n8credentials.n8creds().n8login('n8dropboxlogin')
+app_key = keychain.get_password('dropbox', 'app_key')
+app_secret = keychain.get_password('dropbox', 'app_secret')
 
 # access_type can be 'app_folder' or 'dropbox', depending on
 # how you registered your app.
