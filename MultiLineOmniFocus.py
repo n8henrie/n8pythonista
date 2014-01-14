@@ -49,7 +49,9 @@ def main():
 	smtpserver.close()
 	print 'Done'
 	console.clear()
-	
+
+        # Added to kind of support callbacks while maintaining
+        # backwards compatibility.
 	return_to = sys.argv[-1]
 	
 	if len(sys.argv) > 2 and webbrowser.open(return_to):
