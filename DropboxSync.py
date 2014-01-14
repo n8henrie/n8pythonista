@@ -39,8 +39,12 @@ class dropbox_state:
 				# remove file or directory
 				else: 
 					if os.path.isdir(path):
-						print '\n\tRemoving Directory:', path
-						os.removedirs(path)
+						try:
+							print '\n\tRemoving Directory:', path
+							os.removedirs(path)
+						except OSError:
+							pass
+							    
 					elif os.path.isfile(path):
 						print '\n\tRemoving File:', path
 						os.remove(path)
