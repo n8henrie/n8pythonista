@@ -50,7 +50,12 @@ def main():
 	print 'Done'
 	console.clear()
 	
+	return_to = sys.argv[-1]
+	
+	if len(sys.argv) > 2 and webbrowser.open(return_to):
+		webbrowser.open(return_to)
+	else:
+		webbrowser.open('drafts:')
+	
 if __name__ == '__main__':
 	main()
-
-webbrowser.open('drafts://')
